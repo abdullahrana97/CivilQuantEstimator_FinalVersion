@@ -1,0 +1,174 @@
+{
+  "schema_version": 2,
+  "engine_version": "2.0.0",
+  "name": "Courtyard store-room demo",
+  "currency": "PKR",
+  "rates": {},
+  "records": [
+    {
+      "id": "7d4661baaa72",
+      "label": "Demo Brickwork takeoff",
+      "module": "Brickwork",
+      "created_at": "2026-10-03T09:48:57+00:00",
+      "engine_version": "2.0.0",
+      "inputs": {
+        "length": 10.0,
+        "height": 3.0,
+        "thickness": 0.23,
+        "quantity": 1,
+        "opening_area": 0.0,
+        "mortar_ratio": "1:4",
+        "wastage": 5.0,
+        "brick_length_mm": 230.0,
+        "brick_width_mm": 110.0,
+        "brick_height_mm": 75.0,
+        "joint_mm": 10.0,
+        "dry_factor": 1.33,
+        "cement_density": 1440.0,
+        "bag_kg": 50.0
+      },
+      "result": {
+        "metrics": {
+          "Net area (m²)": 30.0,
+          "Masonry volume (m³)": 6.9,
+          "Theoretical bricks": 2818.627450980392,
+          "Bricks to order": 2960,
+          "Wet mortar before wastage (m³)": 1.5516544117647069,
+          "Dry mortar incl. wastage (m³)": 2.1668853860294135
+        },
+        "materials": {
+          "Bricks (each)": 2960,
+          "Cement (50 kg bags)": 12.481259823529422,
+          "Sand (m³)": 1.7335083088235308
+        },
+        "formulas": [
+          "Net area = length × height × count − total opening area.",
+          "Theoretical bricks = masonry volume / nominal brick volume.",
+          "Nominal brick volume = (length + joint) × (width + joint) × (height + joint).",
+          "Wet mortar = masonry volume − theoretical bricks × actual brick volume.",
+          "Cement bags = cement volume × assumed bulk density / bag mass.",
+          "Dry mortar = wet mortar × dry-volume factor × (1 + wastage/100), split by the selected ratio."
+        ],
+        "notes": [
+          "Opening area is the total across all elements. Each plaster face is a separate surface.",
+          "Idealized brick-and-joint geometry; bond, frogs, breakage pattern and edge effects are not modelled.",
+          "Dry-volume factor, cement density, bag mass and nominal ratios are user-selected estimating assumptions.",
+          "Wastage is applied once. No automatic code-specific measurement deductions are made."
+        ]
+      }
+    },
+    {
+      "id": "9ac16ad789f2",
+      "label": "Demo Plaster takeoff",
+      "module": "Plaster",
+      "created_at": "2026-10-03T09:48:57+00:00",
+      "engine_version": "2.0.0",
+      "inputs": {
+        "length": 10.0,
+        "height": 3.0,
+        "quantity": 1,
+        "opening_area": 0.0,
+        "thickness_mm": 12.0,
+        "mortar_ratio": "1:4",
+        "wastage": 5.0,
+        "dry_factor": 1.33,
+        "cement_density": 1440.0,
+        "bag_kg": 50.0
+      },
+      "result": {
+        "metrics": {
+          "Net area (m²)": 30.0,
+          "Wet plaster before wastage (m³)": 0.36,
+          "Dry mortar incl. wastage (m³)": 0.5027400000000001
+        },
+        "materials": {
+          "Cement (50 kg bags)": 2.8957824000000003,
+          "Sand (m³)": 0.40219200000000005
+        },
+        "formulas": [
+          "Net area = length × height × count − total opening area.",
+          "Wet plaster = net area × thickness in metres.",
+          "Cement bags = cement volume × assumed bulk density / bag mass.",
+          "Dry mortar = wet mortar × dry-volume factor × (1 + wastage/100), split by the selected ratio."
+        ],
+        "notes": [
+          "Opening area is the total across all elements. Each plaster face is a separate surface.",
+          "Dry-volume factor, cement density, bag mass and nominal ratios are user-selected estimating assumptions.",
+          "Wastage is applied once. No automatic code-specific measurement deductions are made."
+        ]
+      }
+    },
+    {
+      "id": "d6b8a0033188",
+      "label": "Demo Concrete takeoff",
+      "module": "Concrete",
+      "created_at": "2026-10-03T09:48:57+00:00",
+      "engine_version": "2.0.0",
+      "inputs": {
+        "length": 5.0,
+        "width": 3.0,
+        "thickness": 0.15,
+        "quantity": 1,
+        "mix_ratio": "1:2:4",
+        "wastage": 5.0,
+        "dry_factor": 1.54,
+        "cement_density": 1440.0,
+        "bag_kg": 50.0
+      },
+      "result": {
+        "metrics": {
+          "Net concrete (m³)": 2.25,
+          "Concrete incl. wastage (m³)": 2.3625000000000003,
+          "Dry ingredients incl. wastage (m³)": 3.63825
+        },
+        "materials": {
+          "Cement (50 kg bags)": 14.968800000000002,
+          "Sand (m³)": 1.0395,
+          "Aggregate (m³)": 2.079
+        },
+        "formulas": [
+          "Wet volume = length × width × depth × count.",
+          "Dry ingredients = wet volume × dry-volume factor × (1 + wastage/100).",
+          "Ingredient volume = dry ingredients × its ratio part / sum of all parts.",
+          "Cement bags = cement volume × assumed bulk density / bag mass."
+        ],
+        "notes": [
+          "Nominal volumetric takeoff only. No strength-grade guarantee, mix design, water, admixtures or structural reinforcement design.",
+          "Dry-volume factor, cement density, bag mass and nominal ratios are user-selected estimating assumptions.",
+          "Wastage is applied once. No automatic code-specific measurement deductions are made."
+        ]
+      }
+    },
+    {
+      "id": "3cdfb4adf538",
+      "label": "Demo Steel takeoff",
+      "module": "Steel",
+      "created_at": "2026-10-03T09:48:57+00:00",
+      "engine_version": "2.0.0",
+      "inputs": {
+        "bar_dia": 12.0,
+        "bar_length": 6.0,
+        "no_of_bars": 10,
+        "wastage": 3.0,
+        "steel_density": 7850.0
+      },
+      "result": {
+        "metrics": {
+          "Total cut length (m)": 60.0,
+          "Unit mass (kg/m)": 0.8878140839044755,
+          "Mass before wastage (kg)": 53.26884503426853
+        },
+        "materials": {
+          "Steel (kg)": 54.866910385296585
+        },
+        "formulas": [
+          "Mass = π/4 × diameter² (metres) × density × total cut length × (1 + wastage/100)."
+        ],
+        "notes": [
+          "Bar mass takeoff only. Enter the approved total cut length per bar; bend shapes, laps, hooks and cutting-stock optimization are not generated.",
+          "Wastage is applied once. No automatic code-specific measurement deductions are made."
+        ]
+      }
+    }
+  ]
+}

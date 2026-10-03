@@ -1,0 +1,43 @@
+CIVIL QUANTESTIMATE - FICTIONAL DEMO PROJECT
+This is an invented hackathon demonstration specification, not a building code,
+real client specification, certified design, or market price source.
+
+Project: Courtyard store-room demonstration
+
+Masonry requirements:
+One wall is 10.0 metres long, 3.0 metres high and 0.23 metres thick.
+The total opening area is 2.10 square metres across the wall.
+The assumed actual brick size is 230 x 110 x 75 mm.
+Use a 10 mm joint allowance for the estimating model.
+For this fictional example, the cement-to-sand mortar ratio is 1:6 by volume.
+Use a 5 percent material wastage allowance.
+
+Plaster requirements:
+One surface is 10 metres long and 3 metres high, with total openings of 2.10 m2.
+The demonstration plaster thickness is 15 mm.
+The cement-to-sand mortar ratio for this demo plaster is 1:4 by volume.
+Use a 5 percent material wastage allowance.
+
+Concrete example:
+A separate nominal concrete quantity exercise has dimensions 5 x 3 x 0.15 m.
+The volumetric cement:sand:aggregate ratio is 1:2:4 for estimating only.
+This document does not specify or certify a structural concrete strength grade.
+
+Reinforcement example:
+Ten straight bars have diameter 12 mm and cut length 6 m per bar.
+Approved bends, hooks and laps must be included in the cut length before takeoff.
+No reinforcement design or bend schedule is supplied here.
+
+Common estimating assumptions:
+Mortar dry-volume factor: 1.33.
+Concrete dry-volume factor: 1.54.
+Assumed loose cement bulk density: 1440 kg per cubic metre.
+Cement bag mass: 50 kg.
+Steel density: 7850 kg per cubic metre.
+These values are explicit assumptions for this demo; confirm them for a real job.
+
+Pricing and procurement:
+No material prices are supplied. Request supplier quotations for the actual project.
+Labour, transport, equipment, taxes and overheads are outside this demo estimate.
+The quantity reviewer should highlight discrepancies between saved form inputs
+and this example document, then ask the user to correct the inputs manually.

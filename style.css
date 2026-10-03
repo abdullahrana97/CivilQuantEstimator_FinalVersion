@@ -1,0 +1,51 @@
+/* Civil QuantEstimate v2. Native Streamlit widgets follow the selected theme. */
+.block-container { max-width: 1320px; padding-top: 2.1rem; padding-bottom: 3rem; }
+[data-testid="stHeader"] { background: transparent; }
+[data-testid="stSidebar"] { border-right: 1px solid var(--cq-border); }
+[data-testid="stSidebar"] .block-container { padding-top: 1.5rem; }
+h1,h2,h3 { letter-spacing: -.035em; }
+.brand { display:flex; gap:11px; align-items:center; padding:8px 0 23px; }
+.brand-mark { display:grid; place-items:center; width:39px; height:43px; background:#36d99b; color:#071313; font-size:24px; font-weight:900; border-radius:9px 9px 3px 9px; }
+.brand-title { font-weight:750; font-size:17px; color:var(--cq-text); line-height:1.2; }
+.brand-title span { color:var(--cq-accent); }
+.brand-caption { margin-top:6px; font-size:9px; letter-spacing:1.8px; color:var(--cq-muted); }
+.eyebrow { color:var(--cq-accent); text-transform:uppercase; font-size:11px; font-weight:750; letter-spacing:2px; margin-bottom:10px; }
+.muted { color:var(--cq-muted); }
+.hero p,.stat-label,.stat-note,.feature-desc,.page-subtitle,.footer,.brand-caption { opacity:.76; }
+.hero { position:relative; overflow:hidden; border:1px solid var(--cq-border); border-radius:20px; padding:43px; min-height:285px; background:var(--cq-hero); margin-bottom:24px; }
+.hero h1 { font-size:clamp(35px,4.4vw,58px); font-weight:780; line-height:1.07; margin:14px 0 17px; max-width:720px; position:relative; z-index:1; }
+.hero h1 span { color:var(--cq-accent); }
+.hero p { max-width:585px; color:var(--cq-muted); font-size:15px; line-height:1.7; position:relative; z-index:1; }
+.pill { display:inline-block; font-size:10px; font-weight:700; letter-spacing:1.3px; padding:7px 11px; border:1px solid var(--cq-border); border-radius:30px; color:var(--cq-accent); background:var(--cq-soft); }
+.wire { position:absolute; right:34px; bottom:-30px; width:195px; height:246px; opacity:.21; transform:skewY(-16deg); border:1px solid var(--cq-accent); background:repeating-linear-gradient(90deg, transparent 0 37px,var(--cq-accent) 38px 39px),repeating-linear-gradient(0deg,transparent 0 28px,var(--cq-accent) 29px 30px); }
+.wire:before { content:""; position:absolute; width:118px; height:181px; left:-128px; bottom:0; border:1px solid var(--cq-accent); background:inherit; }
+.stat { padding:21px 22px; border:1px solid var(--cq-border); border-radius:14px; background:var(--cq-card); min-height:132px; }
+.stat-label { font-size:11px; color:var(--cq-muted); letter-spacing:.8px; text-transform:uppercase; }
+.stat-value { font-size:31px; font-weight:740; color:var(--cq-text); margin:7px 0 2px; }
+.stat-note { color:var(--cq-muted); font-size:11px; }
+.section-head { margin:30px 0 12px; display:flex; align-items:center; justify-content:space-between; }
+.section-head h2 { font-size:22px; margin:0; }
+.feature-number { font-size:11px; color:var(--cq-accent); font-weight:700; letter-spacing:1.7px; margin-bottom:15px; }
+.feature-title { font-size:18px; font-weight:700; margin-bottom:7px; color:var(--cq-text); }
+.feature-desc { font-size:13px; color:var(--cq-muted); min-height:62px; line-height:1.6; }
+.page-heading { font-size:36px; font-weight:760; letter-spacing:-1.4px; margin:2px 0 7px; }
+.page-subtitle { color:var(--cq-muted); font-size:14px; line-height:1.6; margin-bottom:24px; max-width:750px; }
+.status-note { border-left:2px solid var(--cq-accent); padding:10px 14px; background:var(--cq-soft); border-radius:0 7px 7px 0; color:var(--cq-muted); font-size:12px; line-height:1.6; margin:12px 0 19px; }
+[data-testid="stVerticalBlockBorderWrapper"] { border-radius:14px; }
+[data-testid="stMetric"] { padding:16px; border:1px solid var(--cq-border); border-radius:12px; background:var(--cq-card); }
+[data-testid="stMetricValue"] { font-size:25px; }
+.stButton button, .stDownloadButton button, .stFormSubmitButton button { border-radius:9px; min-height:40px; font-weight:600; }
+button[kind="primary"],button[kind="primaryFormSubmit"] { color:#06291c; }
+.footer { margin-top:46px; padding:17px 0; border-top:1px solid var(--cq-border); color:var(--cq-muted); font-size:11px; line-height:1.8; }
+@media (max-width:700px) {
+ .block-container { padding:1.7rem 1rem 2rem; }
+ .hero { padding:25px 23px; min-height:260px; }
+ .hero h1 { font-size:36px; }
+ .wire { opacity:.10; right:8px; }
+ .hero p { font-size:13px; }
+ .page-heading { font-size:29px; }
+ .stat { min-height:105px; padding:16px; }
+ .stat-value { font-size:26px; }
+ .feature-desc { min-height:0; }
+}
+@media (prefers-reduced-motion:no-preference) { .stButton button { transition:border-color .15s,background-color .15s; } }

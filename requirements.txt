@@ -1,0 +1,12 @@
+-c constraints.txt
+streamlit==1.65.0
+crewai[litellm]==1.15.23
+groq==1.7.0
+sentence-transformers==6.1.0
+faiss-cpu==1.15.1
+numpy==2.4.6
+# CPU wheel for Streamlit Cloud / Linux x86_64, Python 3.11.
+torch @ https://download.pytorch.org/whl/cpu/torch-2.8.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl ; sys_platform == 'linux' and platform_machine == 'x86_64' and python_version == '3.11'
+torch==2.8.0; sys_platform != 'linux' or platform_machine != 'x86_64' or python_version != '3.11'
+pypdf==6.19.0
+reportlab==5.0.1
