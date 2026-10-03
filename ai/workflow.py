@@ -87,8 +87,10 @@ class EstimateReviewFlow(Flow):
             return evidence_text(hits) or "No matching document evidence. Do not invent sources."
 
         @tool("recalculate_submitted_estimate")
-        def recalculate_submitted_estimate() -> str:
-            """Recalculate the submitted estimate with Python; returns exact quantities and assumptions."""
+        def recalculate_submitted_estimate(scope: str = "submitted") -> str:
+            """Recalculate the saved estimate. Pass scope='submitted'; returns quantities and assumptions."""
+            if scope != "submitted":
+                return "Only the submitted estimate is available. Use scope='submitted'."
             result = calculate(self.record["module"], self.record["inputs"])
             self.tool_events.append(dict(tool="recalculate_submitted_estimate", result="Recomputed successfully"))
             return json.dumps(result, ensure_ascii=False)
@@ -115,14 +117,14 @@ class EstimateReviewFlow(Flow):
             writer = agent("Estimate report writer", "Combine findings without inventing facts.", [])
             t1 = Task(description="Find requirements relevant to this estimate. Use document search if needed. " + rules,
                       expected_output="At most 150 words of evidence and gaps, with source IDs when available.", agent=researcher)
-            t2 = Task(description="Use recalculate_submitted_estimate to verify the quantities. Explain limitations. " + rules,
+            t2 = Task(description="Use recalculate_submitted_estimate with scope='submitted' to verify the quantities. Explain limitations. " + rules,
                       expected_output="At most 180 words on quantities, assumptions and required checks.", agent=checker, context=[t1])
             t3 = Task(description="Write a review under 350 words: Summary, Evidence, Assumptions and Next steps. " + rules,
                       expected_output=expected, agent=writer, context=[t1, t2])
             agents, tasks = [researcher, checker, writer], [t1, t2, t3]
         else:
             reviewer = agent("Civil estimate reviewer", "Review one estimate using the available evidence and tools.", tools)
-            tasks = [Task(description="Use recalculate_submitted_estimate, then review the result in under 350 words. " + rules,
+            tasks = [Task(description="Use recalculate_submitted_estimate with scope='submitted', then review the result in under 350 words. " + rules,
                           expected_output=expected, agent=reviewer)]
             agents = [reviewer]
         crew = Crew(agents=agents, tasks=tasks, process=Process.sequential,

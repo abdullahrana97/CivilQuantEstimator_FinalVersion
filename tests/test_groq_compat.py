@@ -39,6 +39,29 @@ class GroqCompatibilityTests(unittest.TestCase):
         self.assertTrue(all("cache_breakpoint" not in msg for msg in outgoing))
         self.assertTrue(messages[0]["cache_breakpoint"])
 
+    def test_native_agent_recalculation_has_valid_schema_and_executes(self):
+        import litellm
+        from ai.workflow import EstimateReviewFlow
+        from core.calculations import make_record, default_inputs
+        record = make_record("Plaster", default_inputs("Plaster"))
+        llm = crew_llm("test-key-not-a-real-key", DEFAULT_MODEL)
+        tool_response = litellm.ModelResponse(choices=[{"index": 0, "finish_reason": "tool_calls",
+            "message": {"role": "assistant", "content": None, "tool_calls": [
+                {"id": "call_test", "type": "function", "function": {
+                    "name": "recalculate_submitted_estimate", "arguments": '{"scope":"submitted"}'}}
+            ]}}])
+        final_response = litellm.ModelResponse(choices=[{"index": 0, "finish_reason": "stop",
+            "message": {"role": "assistant", "content": "General guidance: quantities checked; confirm your specification."}}])
+        with patch("litellm.completion", side_effect=[tool_response, final_response]) as completion:
+            result = EstimateReviewFlow(record, "Check quantities", None, llm).kickoff()
+        self.assertTrue(any(e["tool"] == "recalculate_submitted_estimate" for e in result["events"]))
+        self.assertEqual(record["result"], result["result"])
+        outgoing = completion.call_args_list[0].kwargs
+        tool = next(t for t in outgoing["tools"] if t["function"]["name"] == "recalculate_submitted_estimate")
+        self.assertIn("scope", tool["function"]["parameters"]["properties"])
+        for call in completion.call_args_list:
+            self.assertTrue(all("cache_breakpoint" not in msg for msg in call.kwargs["messages"]))
+
 
 if __name__ == "__main__":
     unittest.main()
