@@ -84,6 +84,24 @@ def crew_llm(api_key, model):
     from crewai import LLM
     if not api_key or model not in MODELS:
         raise AIError("The review service needs attention from the app owner.")
-    return LLM(model=f"groq/{model}", api_key=api_key, temperature=0.1,
+
+    class GroqCompatibleLLM(LLM):
+        """Remove CrewAI-only message metadata at the Groq request boundary.
+
+        CrewAI 1.15.23's LiteLLM path passes cache_breakpoint through to Groq,
+        which rejects it. Copy messages so the agent's history is unchanged.
+        This override is specific to the pinned release and this LLM instance.
+        """
+        def _prepare_completion_params(self, messages, tools=None, skip_file_processing=False):
+            params = super()._prepare_completion_params(
+                messages, tools=tools, skip_file_processing=skip_file_processing,
+            )
+            params["messages"] = [
+                {key: value for key, value in message.items() if key != "cache_breakpoint"}
+                for message in params["messages"]
+            ]
+            return params
+
+    return GroqCompatibleLLM(model=f"groq/{model}", api_key=api_key, temperature=0.1,
                max_tokens=1800, reasoning_effort="low", timeout=60,
                parallel_tool_calls=False, num_retries=0)
