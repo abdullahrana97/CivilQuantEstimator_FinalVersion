@@ -1,4 +1,3 @@
-"""Civil QuantEstimate v2 - run with: python -m streamlit run app.py"""
 import copy
 from html import escape
 import json
