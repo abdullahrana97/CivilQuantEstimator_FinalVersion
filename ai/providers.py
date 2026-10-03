@@ -21,23 +21,23 @@ def error_message(exc):
     status = getattr(exc, "status_code", None)
     name = type(exc).__name__.lower()
     if status == 429 or "ratelimit" in name:
-        return "Groq's usage limit was reached. Wait and retry, or check your Groq console limits. Your takeoffs are saved in this session."
+        return "The AI service is busy or its usage limit was reached. Wait a minute and try again. Your estimates are still saved."
     if status in (401, 403) or "authentication" in name:
-        return "Groq rejected the API key or model access. Check your key and account model permissions."
+        return "The AI service needs attention from the app owner. Your estimates are still saved."
     if "timeout" in name:
-        return "The AI request timed out. Try a shorter question or single-agent mode."
+        return "The review took too long. Try again with a shorter question or turn off team review."
     if status == 400:
-        return "Groq rejected the request. Check model availability and the installed dependency versions."
-    return "The AI request could not finish. Check your connection, API key, Groq model access and usage limits."
+        return "The AI service could not process this request. Try a shorter question. If it keeps happening, contact the app owner."
+    return "The AI request could not finish. Please try again. If it keeps happening, contact the app owner."
 
 
 def chat(api_key, model, question, context="", hits=None, document_only=False):
     from groq import Groq
     from .rag import evidence_text, source_dict
     if not api_key:
-        raise AIError("Add a Groq API key to use CiviGuide.")
+        raise AIError("CiviGuide is temporarily unavailable. Please contact the app owner.")
     if model not in MODELS:
-        raise AIError("Choose a supported Groq model.")
+        raise AIError("CiviGuide needs attention from the app owner.")
     hits = hits or []
     if document_only and not hits:
         return dict(answer="I could not find a sufficiently relevant passage in the indexed documents. Try a more specific question or upload the relevant document.", sources=[])
@@ -83,7 +83,7 @@ Do not supplement document-only answers with general knowledge."""
 def crew_llm(api_key, model):
     from crewai import LLM
     if not api_key or model not in MODELS:
-        raise AIError("Set a Groq API key and choose a supported model.")
+        raise AIError("The review service needs attention from the app owner.")
     return LLM(model=f"groq/{model}", api_key=api_key, temperature=0.1,
                max_tokens=1800, reasoning_effort="low", timeout=60,
                parallel_tool_calls=False, num_retries=0)

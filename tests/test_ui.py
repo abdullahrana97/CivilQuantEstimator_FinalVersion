@@ -16,14 +16,17 @@ class StreamlitTests(unittest.TestCase):
         app = self.app()
         self.assertEqual(len(app.exception), 0)
         for page in ["Quantity takeoff", "Knowledge base", "CiviGuide AI", "Agent review", "Project & exports", "Overview"]:
-            self.click(app, page)
+            labels = {"Quantity takeoff": "Estimate materials", "Knowledge base": "Project documents",
+                      "CiviGuide AI": "Ask CiviGuide", "Agent review": "Review estimate",
+                      "Project & exports": "Reports & saved items", "Overview": "Home"}
+            self.click(app, labels[page])
 
     def test_save_export_and_remove(self):
         app = self.app()
-        self.click(app, "Quantity takeoff")
-        self.click(app, "Calculate & save takeoff")
+        self.click(app, "Estimate materials")
+        self.click(app, "Calculate & save")
         self.assertEqual(len(app.session_state.records), 1)
-        self.click(app, "Project & exports")
+        self.click(app, "Reports & saved items")
         self.click(app, "Prepare PDF report")
         self.assertTrue(app.session_state.pdf.startswith(b"%PDF"))
         self.click(app, "Remove selected item")

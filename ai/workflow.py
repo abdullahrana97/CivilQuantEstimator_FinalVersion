@@ -13,7 +13,9 @@ os.environ.setdefault("CREWAI_TRACING_ENABLED", "false")
 os.environ.setdefault("CREWAI_STORAGE_DIR", os.path.join(tempfile.gettempdir(), "cq-crewai-runtime"))
 
 import json
+import logging
 import re
+from uuid import uuid4
 from time import perf_counter
 from typing import ClassVar
 from crewai import Agent, Crew, Process, Task
@@ -150,4 +152,11 @@ def run_review(record, question, index, api_key, model, mode):
     except AIError:
         raise
     except Exception as exc:
-        raise AIError(error_message(exc)) from exc
+        reference = uuid4().hex[:8]
+        # Log only structured diagnostics. Do not log keys, prompts or document text.
+        logging.getLogger(__name__).error(
+            "CQ_REVIEW_FAILED reference=%s exception=%s status=%s code=%s",
+            reference, type(exc).__name__, getattr(exc, "status_code", None),
+            getattr(exc, "code", None),
+        )
+        raise AIError(f"{error_message(exc)} Error reference: {reference}.") from exc
