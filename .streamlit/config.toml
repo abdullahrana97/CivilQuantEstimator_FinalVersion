@@ -9,6 +9,7 @@ font = "sans serif"
 [server]
 maxUploadSize = 5
 enableXsrfProtection = true
+fileWatcherType = "none"
 
 [browser]
 gatherUsageStats = false
